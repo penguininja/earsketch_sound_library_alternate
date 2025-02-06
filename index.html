@@ -172,8 +172,17 @@
                     playButton.preload = "metadata";
                     playButton.src = `${baseUrl}/${clip.path}`;
 
+                    const copyButton = document.createElement("button");
+                    copyButton.textContent = "Copy Title";
+                    copyButton.addEventListener("click", () => {
+                        navigator.clipboard.writeText(clip.name).then(() => {
+                            alert("Copied to clipboard: " + clip.name);
+                        });
+                    });
+
                     clipDiv.appendChild(title);
                     clipDiv.appendChild(playButton);
+                    clipDiv.appendChild(copyButton);
                     clipDiv.appendChild(metadataToggle);
                     clipDiv.appendChild(details);
 
