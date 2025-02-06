@@ -212,8 +212,6 @@
                     clipDiv.appendChild(metadataToggle);
                     clipDiv.appendChild(details);
 
-                    favoriteFilter.addEventListener("change", filterSoundClips);
-
                     metadataToggle.addEventListener("click", () => {
                         clipDiv.classList.toggle("expanded");
                     });
@@ -230,6 +228,7 @@
                 }
             }
 
+            favoriteFilter.addEventListener("change", filterSoundClips);
             genreFilter.addEventListener("change", filterSoundClips);
             instrumentFilter.addEventListener("change", filterSoundClips);
             artistFilter.addEventListener("change", filterSoundClips);
