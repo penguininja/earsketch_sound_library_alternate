@@ -123,6 +123,7 @@
                 const selectedGenre = genreFilter.value;
                 const selectedInstrument = instrumentFilter.value;
                 const selectedArtist = artistFilter.value;
+                const showFavorites = favoriteFilter.checked;
 
                 filteredClips = soundClips.filter(
                     (clip) =>
@@ -131,7 +132,8 @@
                         (selectedInstrument === "all" ||
                             clip.instrument === selectedInstrument) &&
                         (selectedArtist === "all" ||
-                            clip.artist === selectedArtist),
+                            clip.artist === selectedArtist) &&
+                        (!showFavorites || favorites.has(clip.name)),
                 );
 
                 currentIndex = 0;
@@ -173,16 +175,31 @@
                     playButton.src = `${baseUrl}/${clip.path}`;
 
                     const copyButton = document.createElement("button");
-                    copyButton.textContent = "Copy Title";
+                    copyButton.textContent = "Copy";
                     copyButton.addEventListener("click", () => {
                         navigator.clipboard.writeText(clip.name).then(() => {
                             alert("Copied to clipboard: " + clip.name);
                         });
                     });
 
+                    const favoriteButton = document.createElement("button");
+                    favoriteButton.textContent = favorites.has(clip.name)
+                        ? "Unfavorite"
+                        : "Favorite";
+                    favoriteButton.addEventListener("click", () => {
+                        if (favorites.has(clip.name)) {
+                            favorites.delete(clip.name);
+                            favoriteButton.textContent = "Favorite";
+                        } else {
+                            favorites.add(clip.name);
+                            favoriteButton.textContent = "Unfavorite";
+                        }
+                    });
+
                     clipDiv.appendChild(title);
                     clipDiv.appendChild(playButton);
                     clipDiv.appendChild(copyButton);
+                    clipDiv.appendChild(favoriteButton);
                     clipDiv.appendChild(metadataToggle);
                     clipDiv.appendChild(details);
 
@@ -205,6 +222,7 @@
             genreFilter.addEventListener("change", filterSoundClips);
             instrumentFilter.addEventListener("change", filterSoundClips);
             artistFilter.addEventListener("change", filterSoundClips);
+            favoriteFilter.addEventListener("change", filterSoundClips);
             loadMoreBtn.addEventListener("click", renderSoundClips);
             loadSoundData();
         </script>
