@@ -61,11 +61,16 @@
         </select>
         <div id="soundClips"></div>
         <button id="loadMore">Load More</button>
+        <label for="favoriteFilter">Show Only Favorites:</label>
+        <input type="checkbox" id="favoriteFilter" />
 
         <script>
             let soundClips = [];
             let filteredClips = [];
             let currentIndex = 0;
+            let favoriteClips = new Set(
+                JSON.parse(localStorage.getItem("favoriteClips")) || [],
+            );
             const batchSize = 50;
             const baseUrl = "https://earsketch.gatech.edu/backend-static";
             const soundClipsContainer = document.getElementById("soundClips");
@@ -131,7 +136,9 @@
                         (selectedInstrument === "all" ||
                             clip.instrument === selectedInstrument) &&
                         (selectedArtist === "all" ||
-                            clip.artist === selectedArtist),
+                            clip.artist === selectedArtist) &&
+                        (!favoriteFilter.checked ||
+                            favoriteClips.has(clip.name)),
                 );
 
                 currentIndex = 0;
@@ -180,11 +187,32 @@
                         });
                     });
 
+                    const favoriteButton = document.createElement("button");
+                    favoriteButton.textContent = favoriteClips.has(clip.name)
+                        ? "Unfavorite"
+                        : "Favorite";
+                    favoriteButton.addEventListener("click", () => {
+                        if (favoriteClips.has(clip.name)) {
+                            favoriteClips.delete(clip.name);
+                            favoriteButton.textContent = "Favorite";
+                        } else {
+                            favoriteClips.add(clip.name);
+                            favoriteButton.textContent = "Unfavorite";
+                        }
+                        localStorage.setItem(
+                            "favoriteClips",
+                            JSON.stringify(Array.from(favoriteClips)),
+                        );
+                    });
+
                     clipDiv.appendChild(title);
                     clipDiv.appendChild(playButton);
                     clipDiv.appendChild(copyButton);
+                    clipDiv.appendChild(favoriteButton);
                     clipDiv.appendChild(metadataToggle);
                     clipDiv.appendChild(details);
+
+                    favoriteFilter.addEventListener("change", filterSoundClips);
 
                     metadataToggle.addEventListener("click", () => {
                         clipDiv.classList.toggle("expanded");
