@@ -37,7 +37,7 @@
             }
             select {
                 display: block;
-                margin: 10px auto;
+                margin: 10px 0;
                 padding: 5px;
                 font-size: 14px;
             }
@@ -152,6 +152,9 @@
                     const title = document.createElement("h3");
                     title.textContent = clip.name;
 
+                    const metadataToggle = document.createElement("button");
+                    metaData.textContent = "Metadata";
+
                     const details = document.createElement("div");
                     details.innerHTML = `
                         <p>Artist: ${clip.artist}</p>
@@ -171,7 +174,7 @@
                     clipDiv.appendChild(playButton);
                     clipDiv.appendChild(details);
 
-                    clipDiv.addEventListener("click", () => {
+                    metadataToggle.addEventListener("click", () => {
                         clipDiv.classList.toggle("expanded");
                     });
 
