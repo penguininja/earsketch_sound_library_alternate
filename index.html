@@ -10,6 +10,10 @@
                 line-height: 1.6;
                 margin: 20px;
             }
+            .filters {
+                align-items: left;
+                disply: flex
+            }
             .clip {
                 margin-bottom: 10px;
                 padding: 10px;
@@ -45,22 +49,32 @@
             }
         </style>
     </head>
-    <body>
+    <div>
         <h1>EarSketch Alternate Sound Library</h1>
-        <label for="genreFilter">Filter by Genre:</label>
-        <select id="genreFilter">
-            <option value="all">All</option>
-        </select>
-        <label for="instrumentFilter">Filter by Instrument:</label>
-        <select id="instrumentFilter">
-            <option value="all">All</option>
-        </select>
-        <label for="artistFilter">Filter by Artist:</label>
-        <select id="artistFilter">
-            <option value="all">All</option>
-        </select>
-        <label for="favoriteFilter">Show Only Favorites:</label>
-        <input type="checkbox" id="favoriteFilter" />
+        <div class="filters">
+            <div class="filter">
+                <label for="genreFilter">Filter by Genre:</label>
+                <select id="genreFilter">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <div class="filter">
+                <label for="instrumentFilter">Filter by Instrument:</label>
+                <select id="instrumentFilter">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <div class="filter">
+                <label for="artistFilter">Filter by Artist:</label>
+                <select id="artistFilter">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <div class="filter">
+                <label for="favoriteFilter">Show Only Favorites:</label>
+                <input type="checkbox" id="favoriteFilter" />
+            </div>
+        </div>
         <div id="soundClips"></div>
         <button id="loadMore">Load More</button>
 
