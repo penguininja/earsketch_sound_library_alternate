@@ -11,8 +11,9 @@
                 margin: 20px;
             }
             .filters {
-                align-items: left;
-                disply: flex
+                align-items: center;
+                display: flex;
+                gap: 10px;
             }
             .clip {
                 margin-bottom: 10px;
@@ -26,8 +27,9 @@
                 font-size: 18px;
             }
             .clip_actions {
-                align-items: left;
+                align-items: center;
                 display: flex;
+                gap: 10px;
             }
             .clip p {
                 display: none;
@@ -53,8 +55,9 @@
             }
         </style>
     </head>
-    <div>
+    >
         <h1>EarSketch Alternate Sound Library</h1>
+        <h2>Filters</h2>
         <div class="filters">
             <div class="filter">
                 <label for="genreFilter">Filter by Genre:</label>
@@ -74,11 +77,12 @@
                     <option value="all">All</option>
                 </select>
             </div>
-            <div class="filter">
-                <label for="favoriteFilter">Show Only Favorites:</label>
-                <input type="checkbox" id="favoriteFilter" />
-            </div>
         </div>
+        <div class="filter">
+            <label for="favoriteFilter">Show Only Favorites:</label>
+            <input type="checkbox" id="favoriteFilter" />
+        </div>
+        <h2>Sound Clips</h2>
         <div id="soundClips"></div>
         <button id="loadMore">Load More</button>
 
