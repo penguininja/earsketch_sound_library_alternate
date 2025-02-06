@@ -25,6 +25,10 @@
                 margin: 0;
                 font-size: 18px;
             }
+            .clip_actions {
+                align-items: left;
+                display: flex;
+            }
             .clip p {
                 display: none;
                 font-size: 14px;
@@ -171,6 +175,8 @@
                     const clip = filteredClips[i];
                     const clipDiv = document.createElement("div");
                     clipDiv.className = "clip";
+                    const clipActionsDiv = document.createElement("div");
+                    clipActionsDiv.className = "clip_actions";
 
                     const title = document.createElement("h3");
                     title.textContent = clip.name;
@@ -220,9 +226,10 @@
                     });
 
                     clipDiv.appendChild(title);
-                    clipDiv.appendChild(playButton);
-                    clipDiv.appendChild(copyButton);
-                    clipDiv.appendChild(favoriteButton);
+                    clipDiv.appendChild(clipActionsDiv)
+                    clipActionsDiv.appendChild(playButton);
+                    clipActionsDiv.appendChild(copyButton);
+                    clipActionsDiv.appendChild(favoriteButton);
                     clipDiv.appendChild(metadataToggle);
                     clipDiv.appendChild(details);
 
