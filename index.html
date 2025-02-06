@@ -20,6 +20,7 @@
             .clip h3 {
                 margin: 0;
                 font-size: 18px;
+                display: inline-block;
             }
             .clip p {
                 display: none;
@@ -154,43 +155,20 @@
                     const title = document.createElement("h3");
                     title.textContent = clip.name;
 
-                    const metadataToggle = document.createElement("button");
-                    metadataToggle.textContent = "Metadata";
-
-                    const details = document.createElement("div");
-                    details.innerHTML = `
-                        <p>Artist: ${clip.artist}</p>
-                        <p>Genre: ${clip.genre}</p>
-                        <p>Instrument: ${clip.instrument}</p>
-                        <p>Key Signature: ${clip.keySignature}</p>
-                        <p>Tempo: ${clip.tempo}</p>
-                        <p>Year: ${clip.year}</p>
-                    `;
-
-                    const playButton = document.createElement("audio");
-                    playButton.controls = true;
-                    playButton.preload = "metadata";
-                    playButton.src = `${baseUrl}/${clip.path}`;
-
-                    clipDiv.appendChild(title);
-                    clipDiv.appendChild(playButton);
-                    clipDiv.appendChild(metadataToggle);
-                    clipDiv.appendChild(details);
-
-                    metadataToggle.addEventListener("click", () => {
-                        clipDiv.classList.toggle("expanded");
+                    const copyButton = document.createElement("button");
+                    copyButton.textContent = "Copy Title";
+                    copyButton.addEventListener("click", () => {
+                        navigator.clipboard.writeText(clip.name).then(() => {
+                            alert("Copied to clipboard: " + clip.name);
+                        });
                     });
 
+                    clipDiv.appendChild(title);
+                    clipDiv.appendChild(copyButton);
                     fragment.appendChild(clipDiv);
                 }
                 soundClipsContainer.appendChild(fragment);
                 currentIndex += batchSize;
-
-                if (currentIndex >= filteredClips.length) {
-                    loadMoreBtn.style.display = "none";
-                } else {
-                    loadMoreBtn.style.display = "block";
-                }
             }
 
             genreFilter.addEventListener("change", filterSoundClips);
